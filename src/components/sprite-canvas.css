@@ -1,0 +1,52 @@
+
+.sprite-canvas {
+	width:512px;
+	height:512px;
+	border:1px solid black;
+}
+
+.sprite-canvas canvas {
+	/* background:blue; */
+	width:100%;
+	height:100%;
+	margin:0;
+	display:block;
+}
+
+
+.sprite-card {
+	width:12.5%;
+	/* background:blue; */
+	/* width:20; */
+	position:relative;
+	/* height:2em; */
+	display: inline-block;
+	vertical-align:bottom;
+
+}
+
+.card-container {
+	word-spacing: -1;
+}
+
+.sprite-card .sprite-inner {
+	margin-top:100%;
+	/* aspect-ratio: 1; */
+	/* background:purple; */
+}
+
+.prel {
+	position: relative;
+}
+
+.pabs {
+	width:100%;
+	height:100%;
+	position:absolute;
+	top:0;
+	left:0;
+}
+
+.m-auto {
+	margin:auto;
+}

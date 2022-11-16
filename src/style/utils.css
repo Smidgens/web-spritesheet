@@ -14,5 +14,12 @@ Utility classes for prototyping.
 .bg-yellow { background:#ff0; }
 .bg-magenta { background:#f0f; }
 .bg-purple { background:purple; }
-.bg-gray { background:#111; }
 .bg-orange { background:orange; }
+
+.bg-dark { background:#111; }
+
+
+
+.shadow {
+	filter:drop-shadow(5px 5px 4px #0003) !important;
+}

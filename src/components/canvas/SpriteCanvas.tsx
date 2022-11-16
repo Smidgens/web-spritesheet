@@ -5,6 +5,8 @@ import { Box } from "../layout";
 import { SpriteData, SpritesheetSettings } from "$types";
 import styled from "styled-components";
 
+const GRID_COLOR = "#fff3";
+
 // index -> column and row
 const getXY = (i:number, cols:number):{ x:number,y:number } => {
 	const x = i % cols;
@@ -12,19 +14,28 @@ const getXY = (i:number, cols:number):{ x:number,y:number } => {
 	return { x, y };
 };
 
+
+const getDisplaySprites = (data:SpriteData[]) => {
+
+};
+
+const SMOOTHING_OPTIONS = [ "low", "medium", "high" ];
+
 // sprite preview canvas
 export const SpriteCanvas:FC<{
 	items:SpriteData[];
 	settings:SpritesheetSettings;
+	showGuides?:boolean;
 }> = props => {
 
 	const canvasSize = props.settings.resolution;
 	const cols = props.settings.cols;
 
+	const showGuides = props.showGuides || false;
+
 	const el = useRef<HTMLCanvasElement>();
 
 	const root = useRef<HTMLElement>();
-
 
 	// canvas scale inside wrapper
 	// const [ scale, setScale] = useState(1);
@@ -34,7 +45,7 @@ export const SpriteCanvas:FC<{
 	const getContext = () => {
 		return el.current?.getContext("2d");
 	};
-
+	
 	useEffect(() => {
 
 		const el = root.current;
@@ -43,7 +54,6 @@ export const SpriteCanvas:FC<{
 		setWrapperSize(el.clientWidth);
 
 		const onResize = () => {
-			console.log(el.clientWidth);
 			setWrapperSize(el.clientWidth);
 		};
 
@@ -55,19 +65,23 @@ export const SpriteCanvas:FC<{
 		};
 	}, []);
 
-
-
 	useEffect(() => {
 		var ctx = getContext();
 		if(!ctx) { return; }
-		
-		
-
 	}, []);
 
 	useEffect(() => {
 		const ctx = getContext();
 		if(!ctx){ return; }
+
+		const antialias = props.settings.antialias;
+
+		if(antialias > 0){
+			ctx.imageSmoothingEnabled = true;
+			ctx.imageSmoothingQuality = SMOOTHING_OPTIONS[antialias] as any;
+		}else {
+			ctx.imageSmoothingEnabled = false;
+		}
 
 		ctx.clearRect(0, 0, canvasSize, canvasSize);
 
@@ -105,30 +119,36 @@ export const SpriteCanvas:FC<{
 
 		});
 
-	}, [ props.items ]);
+	}, [ props.items, props.settings ]);
 
 	const scale = wrapperSize / canvasSize;
+
+	const guides = showGuides ? (
+		<OverlayGrid
+		cols={cols}
+		color={ GRID_COLOR }
+		/>
+	) : <></>;
 
 	return (
 
 		<CanvasWrapper
 		ref={ root as any }
+
+		className={ `bg-dark` }
 		>
 			<Canvas
 			ref={ el as any }
 			width={ canvasSize }
 			height={ canvasSize }
 			style={{
-
 				transform:`scale(${scale})`
 			}}
 			>
 
 			</Canvas>
 
-			<OverlayGrid
-			cols={cols}
-			/>
+			{ guides }
 
 		</CanvasWrapper>
 	)
@@ -137,14 +157,17 @@ export const SpriteCanvas:FC<{
 
 //
 const OverlayGrid:FC<{
-	cols:number,
+	cols:number;
+	color:string;
 }> = props => {
 
-	const color = "#0003";
+	const color = props.color;
 
 	const ditems:JSX.Element[] = [];
 	const cols = props.cols;
 	const width = 100 / cols;
+
+	const border = `1px solid ${color}`;
 
 	for(let i = 0; i < cols * cols; i++){
 		const { x, y } = getXY(i, cols);
@@ -155,6 +178,8 @@ const OverlayGrid:FC<{
 		const left = `${xo}%`;
 		const top = `${yo}%`;
 
+		
+
 		var item = (
 			<Box.Abs
 			key={ "cell" + i }
@@ -163,7 +188,8 @@ const OverlayGrid:FC<{
 				height:`${width}%`,
 				left,
 				top,
-				border:`1px solid ${color}`,
+				borderLeft:border,
+				borderTop:border,
 			}}
 			>
 			</Box.Abs>
@@ -177,7 +203,8 @@ const OverlayGrid:FC<{
 		style={{
 			pointerEvents:"none",
 			zIndex:10,
-			border:`1px solid ${color}`
+			borderRight:border,
+			borderBottom:border,
 		}}
 		>
 			{ ditems }

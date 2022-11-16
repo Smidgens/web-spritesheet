@@ -18,9 +18,11 @@ export type SpriteData = {
 	// flip image on x/y axes
 	flipX?:boolean;
 	flipY?:boolean;
+	padding?:number;
 };
 
 export type SpritesheetSettings = {
+	antialias:number;
 	resolution:number;
 	// number of tiles per row
 	cols:number;

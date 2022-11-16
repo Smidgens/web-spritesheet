@@ -3,17 +3,28 @@
 import { FC, useState } from "react";
 import { GUID } from "../../utils";
 import styled from "styled-components";
+import { Box } from "../layout";
+
+const IMAGE_TYPES = [
+	"png",
+	"jpg",
+	"jpeg",
+	"ico",
+	"webp",
+].map(x => `image/${x}`);
+
 
 // allowed file types
-const FILE_ACCEPT = "image/png, image/jpeg";
+// const FILE_ACCEPT = "image/png, image/jpeg, image/ico, image/webp";
+const FILE_ACCEPT = IMAGE_TYPES.join(", ");
 
-const BTN_TEXT = "⭱ Upload";
+
+const BTN_TEXT = "Select files";
 
 interface IImageUpload {
 	multiple?:boolean;
 	// onFiles:(files:FileList|null) => void;
-	onFiles:(files:HTMLImageElement[]) => void;
-
+	onImages:(files:HTMLImageElement[]) => void;
 }
 
 export const ImageUpload:FC<IImageUpload> = props => {
@@ -45,86 +56,95 @@ export const ImageUpload:FC<IImageUpload> = props => {
 	const handleFiles = async (files:FileList|null) => {
 
 		if(!files){ return; }
-
 		const fl:File[] = [];
 
 		for(let i = 0; i < files.length; i++){
 			fl.push(files[i]);
 		}
-
 		const images = await Promise.all(fl.map(x => loadImage(x)));
 
 		setKey(GUID.getGUID());
 
-		props.onFiles(images);
+		props.onImages(images);
 	};
 
 	return (
-		<Wrapper>
-			<FileInput
-			type="file"
-			multiple={ props.multiple }
-			key={ key }
-			accept={ FILE_ACCEPT }
-			onChange={e => handleFiles(e.target.files)}
-			/>
+		<Wrapper
+		>
+
+			<DisplayOverlay
+			className="overlay border"
+			>
 			
-			<div className="overlay pabs tl">
-				<div className="inner">
+			</DisplayOverlay>
+
+			<OverlayText>
 					{ BTN_TEXT }
-				</div>
-			</div>
+			</OverlayText>
+
+			<Box.Abs>
+				<FileInput
+				type="file"
+				multiple={ props.multiple }
+				key={ key }
+				accept={ FILE_ACCEPT }
+				onChange={e => handleFiles(e.target.files)}
+				/>
+			</Box.Abs>
+			
+			
 		
 		</Wrapper>
 
 	)
 };
 
+const DisplayOverlay = styled(Box.Abs)`
+	pointer-events: none;
+	border:2px dashed #fff;
+	display:flex;
+	align-items: center;
+	justify-content: center;
+	font-size:2em;
+`;
+
+
+const OverlayText = styled(Box.Abs)`
+	pointer-events: none;
+	display:flex;
+	align-items: center;
+	justify-content: center;
+	font-size:2em;
+`;
+
+
 const Wrapper = styled.div`
 
 	cursor:pointer;
 	position: relative;
 	overflow:hidden;
+	width:100%;
+	height:100%;
+
+	color:#fff;
+
+	.overlay.border {
+		opacity:0.3;
+	}
 
 	&:hover {
-		.overlay {
-			
-			.inner {
-				transition: .1s ease-in-out;
-				border-color:#fff;
-			}
-
+		.overlay.border {
+			opacity:0.8;
 		}
 	}
 
-	.overlay {
-		position: absolute;
-		pointer-events: none;
-		display:flex;
-		
-		font-weight:bold;
-		color:#fff;
-		background:#111;
-		
-		
-		display:flex;
 	
-		.inner {
-			display:flex;
-			justify-content: center;
-			align-items: center;
-			border:1px dashed transparent;
-			width:calc(100% - 1em);
-			height:calc(100% - 1em);
-			margin:auto;
-			border-radius: 0.25em;
-		}
-	}
 `;
 
 
 const FileInput = styled.input`
 	width:100%;
+	height:100%;
 	/* border-radius: 0.25em; */
 	background:#fff;
 	/* border:1px solid #0005; */

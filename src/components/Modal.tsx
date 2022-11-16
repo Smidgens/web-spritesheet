@@ -23,11 +23,13 @@ export const Modal:FC<IModal> = props => {
 	const handleClose = () => onClose();
 
 	const cl = props.show ? (
-		<ContentLayer>
-				<ContentContainer>
-					{ props.children }
-				</ContentContainer>
-			</ContentLayer>
+		<ContentLayer
+		className="shadow"
+		>
+			<ContentContainer>
+				{ props.children }
+			</ContentContainer>
+		</ContentLayer>
 	) : <></>;
 
 	return (
@@ -45,7 +47,7 @@ const ModalRoot = styled.div`
 	position:fixed;
 	width:100%;
 	height:100%;
-	z-index:10;
+	z-index:20;
 	pointer-events: all;
 
 	&:not(.show) {
@@ -69,9 +71,11 @@ const ModalRoot = styled.div`
 const ContentContainer = styled.div`
 	width:50%;
 	margin: auto;
-	background:#fff;
-	padding:0.5em;
+	background:#222;
+	padding:1em;
 	pointer-events: all;
+
+	border:1px solid #fff3;
 `;
 
 const Backdrop = styled(Box.Abs)`

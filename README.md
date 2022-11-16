@@ -1,3 +1,6 @@
 # ⚙️ Spritesheet Generator
 
-Combines a list of images
+Web editor for combining images into a tiled spritesheet.
+
+
+[DEMO](https://spritesheet.unnar.guru/)

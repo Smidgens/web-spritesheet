@@ -1,5 +1,5 @@
 import { FC } from "react";
-import "./list-url.css";
+import styled from "styled-components";
 
 export const ListURL:FC<{
 	btnText:string;
@@ -22,8 +22,7 @@ export const ListURL:FC<{
 	};
 
 	return (
-
-		<div className="list-url flex">
+		<Wrapper>
 			<input
 			value={props.value}
 			readOnly={ props.readonly }
@@ -35,6 +34,33 @@ export const ListURL:FC<{
 			>
 				{ props.btnText }
 			</button>
-		</div>
+		</Wrapper>
 	)
 };
+
+
+const Wrapper = styled.div`
+
+	display:flex;
+
+	input {
+		border-radius: 0;
+	}
+
+	button {
+		all:unset;
+		width:2em;
+		display:flex;
+		align-items: center;
+		justify-content: center;
+		/* padding: 0 1em; */
+		cursor:pointer;
+
+
+		&:hover {
+			background:#0001;
+		}
+	}
+
+`;
+

@@ -1,8 +1,22 @@
 // smidgens @ github
 
+
+/**
+ * Async resource loading
+ *
+ * @export
+ * @class Async
+ * @typedef {Async}
+ */
 export class Async {
 
-	// generate new guid string
+	/**
+	 * Loads image from url
+	 *
+	 * @async
+	 * @param {string} src
+	 * @returns {Promise<HTMLImageElement>}
+	 */
 	static loadImage = async (src:string):Promise<HTMLImageElement> => {
 		return new Promise<HTMLImageElement>((res, err) => {
 

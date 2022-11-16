@@ -16,6 +16,9 @@ const aliasFn = {
 
 // ./src/$<name>
 [
+	"components",
+	"types",
+	"utils"
 ].forEach(aliasFn.srcModule);
 
 // ./#<name>

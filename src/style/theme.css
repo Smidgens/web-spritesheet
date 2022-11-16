@@ -1,0 +1,34 @@
+/* smidgens @ github */
+
+/* global override */
+
+body {
+	margin: 0;
+	width:100%;
+	height:100%;
+}
+
+div { box-sizing: border-box; }
+
+/*
+============================
+========== INPUT ===========
+============================
+*/
+
+input {
+	width:100%;
+	border-radius: 0.25em;
+	padding:0.5em;
+	background:#fff;
+	border:1px solid #0005;
+	cursor:default;
+}
+
+input:read-only { background:#eee; }
+
+.textarea {
+	width:100%;
+	resize: vertical;
+	min-height: 1em;
+}

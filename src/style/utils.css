@@ -1,0 +1,18 @@
+/* smidgens @ github */
+
+/*
+Utility classes for prototyping.
+*/
+
+/* layout */
+.contain { object-fit: contain; }
+
+/* background */
+.bg-red { background:#f00; }
+.bg-green { background:#0f0; }
+.bg-blue { background:#00f; }
+.bg-yellow { background:#ff0; }
+.bg-magenta { background:#f0f; }
+.bg-purple { background:purple; }
+.bg-gray { background:#111; }
+.bg-orange { background:orange; }

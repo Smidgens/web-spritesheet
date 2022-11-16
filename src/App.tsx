@@ -23,13 +23,14 @@ const ICONS = {
 	DOWN: "🡓"
 };
 
-const COLUMN_OPTIONS = [
-	2,4,5,6,7,8,9,10,11,12,13,14,15,16
-];
+const COLUMN_OPTIONS = ArrayHelper.generate<number>(15, i => i + 2);
 
-const SIZE_OPTIONS = [
-	64,128,256,512,1024,2048,4096
-];
+// resolution
+const SIZE_OPTIONS = ArrayHelper.generate<number>(7, i => Math.pow(2, i + 6));
+
+// const SIZE_OPTIONS = [
+// 	64,128,256,512,1024,2048,4096
+// ];
 
 const ANTIALIAS_OPTIONS = [
 	"off",

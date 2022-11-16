@@ -15,4 +15,20 @@ export class ArrayHelper {
 		arr[a] = arr[b];
 		arr[b] = t;
 	};
+
+	
+	/**
+	 * Generates array of N values
+	 *
+	 * @template T
+	 * @param {number} n
+	 * @param {((i:number) => T)} fn
+	 * @returns {T[]}
+	 */
+	static generate = <T>(n:number, fn:((i:number) => T)):T[] => {
+		if(n <= 0){ return []; }
+		var arr:T[] = [];
+		for(let i = 0; i < n; i++){ arr.push(fn(i)); }
+		return arr;
+	};
 }

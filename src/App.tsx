@@ -28,7 +28,7 @@ const ICONS = {
 	DOWN: "🡓"
 };
 
-const COLUMN_OPTIONS = ArrayHelper.generate<number>(15, i => i + 2);
+const COLUMN_OPTIONS = ArrayHelper.generate<number>(16, i => i + 1);
 
 // resolution
 const SIZE_OPTIONS = ArrayHelper.generate<number>(8, i => Math.pow(2, i + 6));

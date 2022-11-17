@@ -100,7 +100,7 @@ const Select = styled.select`
 	/* border: 1px solid #fff; */
 	padding:0.4em;
 	background:#fff2;
-	box-sizing: border-box; 
+	box-sizing: border-box;
 	
 	&::after {
 		width:50px;

@@ -19,6 +19,21 @@ const getDisplaySprites = (data:SpriteData[]) => {
 
 };
 
+const drawImageTile = (
+	ctx:CanvasRenderingContext2D,
+	image:HTMLImageElement,
+	x:number,
+	y:number,
+	w:number,
+	h:number,
+	padding:number
+) => {
+
+	const px = padding * w;
+	const py = padding * h;
+	ctx.drawImage(image, x + px * 0.5, y + py * 0.5, w - px, h - py);
+};
+
 const SMOOTHING_OPTIONS = [ "low", "medium", "high" ];
 
 // sprite preview canvas
@@ -30,6 +45,7 @@ export const SpriteCanvas:FC<{
 
 	const canvasSize = props.settings.resolution;
 	const cols = props.settings.cols;
+	const padding = props.settings.padding;
 
 	const showGuides = props.showGuides || false;
 
@@ -115,7 +131,17 @@ export const SpriteCanvas:FC<{
 				h -= vv;
 			}
 
-			ctx.drawImage(item.image, x + xo, y + yo, w, h);
+			drawImageTile(
+				ctx,
+				item.image,
+				x + xo,
+				y + yo,
+				w,
+				h,
+				padding
+			);
+
+			// ctx.drawImage(item.image, x + xo, y + yo, w, h);
 
 		});
 

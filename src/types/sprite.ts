@@ -24,6 +24,7 @@ export type SpriteData = {
 export type SpritesheetSettings = {
 	antialias:number;
 	resolution:number;
+	padding:number;
 	// number of tiles per row
 	cols:number;
 };

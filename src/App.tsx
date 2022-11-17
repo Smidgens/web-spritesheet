@@ -1,6 +1,10 @@
 // smidgens @ github
 import { FC, useMemo, useState } from "react";
-import { Box, Dropdown } from "$components";
+import {
+	Box,
+	Dropdown,
+	StepSlider,
+} from "$components";
 import styled from "styled-components";
 import { AppView } from "./AppView";
 import { SpriteData, SpritesheetSettings } from "./types/sprite";
@@ -14,7 +18,8 @@ import { ArrayHelper } from "./utils/array";
 const SPRITESHEET_DEFAULTS:Required<SpritesheetSettings> = {
 	resolution:512,
 	cols:8,
-	antialias:0
+	antialias:0,
+	padding:0
 };
 
 const ICONS = {
@@ -26,7 +31,7 @@ const ICONS = {
 const COLUMN_OPTIONS = ArrayHelper.generate<number>(15, i => i + 2);
 
 // resolution
-const SIZE_OPTIONS = ArrayHelper.generate<number>(7, i => Math.pow(2, i + 6));
+const SIZE_OPTIONS = ArrayHelper.generate<number>(8, i => Math.pow(2, i + 6));
 
 // const SIZE_OPTIONS = [
 // 	64,128,256,512,1024,2048,4096
@@ -104,6 +109,13 @@ export const App:FC = () => {
 
 	};
 
+	const applySetting = (k:(keyof SpritesheetSettings), v:any) => {
+		settings[k] = v;
+		setSettings({
+			...settings
+		});
+	}
+
 	const handleSetCols = (optionIndex:number) => {
 		const cols = COLUMN_OPTIONS[optionIndex];
 		settings.cols = cols;
@@ -127,6 +139,16 @@ export const App:FC = () => {
 		});
 	};
 
+	const handleSetPadding = (value:number) => {
+		applySetting("padding", value);
+
+		// settings.antialias = antialias;
+		// setSettings({
+		// 	...settings
+		// });
+	};
+
+
 	const dsprites = sprites.map((sprite, si) => {
 		const img = (
 			<ThumbImage
@@ -144,7 +166,6 @@ export const App:FC = () => {
 			<ListItemContentWrapper
 			className="list-widgets"
 			>
-
 				<IcoButton
 				text={ ICONS.UP }
 				disabled={ si === 0 }
@@ -156,31 +177,13 @@ export const App:FC = () => {
 				onClick={ () => handleMove(sprite.key, 1) }
 				/>
 
-				{/* <ListItemButton
-				
-				>
-					{ ICONS.UP }
-				</ListItemButton> */}
-				{/* <ListItemButton
-				onClick={ () => handleMove(sprite.key, 1) }
-				>
-					{ ICONS.DOWN }
-				</ListItemButton> */}
-				<Box.FlexFill>
-				
-				</Box.FlexFill>
+				<Box.FlexFill/>
 
 
 				<IcoButton
 				text={ ICONS.DELETE }
 				onClick={ () =>  handleDelete(sprite.key)  }
 				/>
-
-				{/* <ListItemButton
-				onClick={ () => handleDelete(sprite.key) }
-				>
-					{ ICONS.DELETE }
-				</ListItemButton> */}
 			</ListItemContentWrapper>
 		);
 
@@ -195,20 +198,6 @@ export const App:FC = () => {
 			
 		);
 	});
-
-	// const canvasProps = [
-	// 	{
-	// 		label:"Columns",
-	// 		key:"cols",
-	// 		element:(
-	// 			<Dropdown
-	// 			value={ colIndex }
-	// 			labels={ COLUMN_OPTIONS }
-	// 			onSelect={ handleSetCols }
-	// 			/>
-	// 		)
-	// 	}
-	// ];
 
 	const canvasSettingsEdit = (
 		<>
@@ -229,6 +218,11 @@ export const App:FC = () => {
 			value={ settings.antialias }
 			labels={ ANTIALIAS_OPTIONS }
 			onSelect={ handleSetAA }
+			/>
+			<StepSlider
+			label={ <>Padding</> }
+			value={ settings.antialias }
+			onChange={ handleSetPadding }
 			/>
 		</>
 		

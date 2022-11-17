@@ -55,11 +55,11 @@ export const AppView:FC<IProps> = props => {
 				</Truncate>
 			</ViewColumns.Center>
 
-			<ViewColumns.Right className="cr">
+			{/* <ViewColumns.Right className="cr">
 				<Truncate>
 					{ viewports.properties }
 				</Truncate>
-			</ViewColumns.Right>
+			</ViewColumns.Right> */}
 
 		</AppWrapper>
 	);

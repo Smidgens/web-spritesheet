@@ -18,11 +18,14 @@ export const PropLabel:FC<{
 
 const Wrapper = styled.div`
 	padding:0.5em 0.25em;
-	background:rgb(0.5,0.5,0.5);
+	background:rgb(0.5,0.5,0.5,0.3);
 `;
 
 const Label = styled.label`
 	/* font-weight:bold; */
 	color:#fff;
-	opacity: 0.8;
+	opacity: 0.3;
+	letter-spacing: 0.15em;
+	text-transform: uppercase;
+	font-size: 0.9em;
 `;

@@ -31,7 +31,7 @@ const ICONS = {
 const COLUMN_OPTIONS = ArrayHelper.generate<number>(16, i => i + 1);
 
 // resolution
-const SIZE_OPTIONS = ArrayHelper.generate<number>(8, i => Math.pow(2, i + 6));
+const SIZE_OPTIONS = ArrayHelper.generate<number>(10, i => Math.pow(2, i + 4));
 
 // const SIZE_OPTIONS = [
 // 	64,128,256,512,1024,2048,4096

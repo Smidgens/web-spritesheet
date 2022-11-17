@@ -46,8 +46,15 @@ export const SpriteCanvas:FC<{
 	const canvasSize = props.settings.resolution;
 	const cols = props.settings.cols;
 	const padding = props.settings.padding;
+	
 
 	const showGuides = props.showGuides || false;
+
+	let canvasRendering:any = "auto";
+
+	if(props.settings.antialias === 0){
+		canvasRendering = "pixelated";
+	}
 
 	const el = useRef<HTMLCanvasElement>();
 
@@ -91,7 +98,7 @@ export const SpriteCanvas:FC<{
 		if(!ctx){ return; }
 
 		const antialias = props.settings.antialias;
-
+		
 		if(antialias > 0){
 			ctx.imageSmoothingEnabled = true;
 			ctx.imageSmoothingQuality = SMOOTHING_OPTIONS[antialias] as any;
@@ -168,7 +175,8 @@ export const SpriteCanvas:FC<{
 			width={ canvasSize }
 			height={ canvasSize }
 			style={{
-				transform:`scale(${scale})`
+				transform:`scale(${scale})`,
+				imageRendering:canvasRendering
 			}}
 			>
 

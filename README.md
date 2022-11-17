@@ -1,6 +1,6 @@
 ![](/.github/banner.png?raw=true "")
 
-Web editor for building spritesheets. Useful for quickly putting together
+Web editor for building spritesheets. Useful for web games or web apps.
 
 # ℹ️ Features
 
